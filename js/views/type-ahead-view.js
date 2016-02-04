@@ -9,8 +9,8 @@ var App = require('../../../app');
 var $ = App.$;
 var Handlebars = require('handlebars/runtime')['default'];
 var Template = require('../../../templates/templates')(Handlebars);
-var TypeAheadCollection = require('../collections/typeAheadCollection');
-var TypeAheadItemView = require('./typeAheadItemView');
+var TypeAheadCollection = require('../collections/type-ahead-collection');
+var TypeAheadItemView = require('./type-ahead-item-view');
 
 
 var typeAheadView = App.ComponentView.extend({
@@ -125,7 +125,7 @@ var typeAheadView = App.ComponentView.extend({
 		var data;
 
 		data = {
-			typeAheadModifierClass: this.options.typeAheadModifierClass,
+			typeAheadContextClass: this.options.typeAheadModifierClass,
 			typeAheadClass: this.options.typeAheadClass
 		};
 

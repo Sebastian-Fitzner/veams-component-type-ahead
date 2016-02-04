@@ -1,6 +1,6 @@
 // IndexCollection.js
 var Exo = require('exoskeleton');
-var Model = require('../models/typeAheadModel');
+var Model = require('../models/type-ahead-model');
 
 // Creates a new Backbone Collection class object
 var typeAheadCollection = Exo.Collection.extend({

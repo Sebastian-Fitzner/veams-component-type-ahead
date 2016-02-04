@@ -1,1 +1,0 @@
-import TypeAhead from './modules/type-ahead/type-ahead';
