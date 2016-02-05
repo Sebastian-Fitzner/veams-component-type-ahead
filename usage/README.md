@@ -8,14 +8,14 @@ This component is based on the blueprint of Veams-Components.
 
 #### Import
 ``` js
-// @INSERT :: START @id: js-import
+// @INSERT :: START @tag: js-import 
 import TypeAhead from './modules/type-ahead/type-ahead';
 // @INSERT :: END
 ```
 
 #### Initializing in Veams V2
 ``` js
-// @INSERT :: START @id: js-init-v2
+// @INSERT :: START @tag: js-init-v2 
 /**
  * Init TypeAhead
  */
@@ -29,7 +29,7 @@ Helpers.loadModule({
 
 #### Initializing in Veams V3
 ``` js
-// @INSERT :: START @id: js-init-v3
+// @INSERT :: START @tag: js-init-v3  
 /**
  * Init Form
  */
