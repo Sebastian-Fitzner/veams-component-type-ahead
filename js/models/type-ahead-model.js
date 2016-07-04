@@ -1,13 +1,34 @@
-var $ = require('jquery');
-var Exo = require('exoskeleton');
+/**
+ * Represents a model.
+ * @class TypeAheadModel
+ *
+ * Use the get keyword to make our methods serve as getters for a property.
+ * This means they will be accessible as properties, but defined as methods,
+ * retaining compatibility with any existing references if you're converting existing code.
+ *
+ * @author Andy Gutsche
+ */
 
+import App from '../../../app';
 
-// Creates a new Backbone Model class object
-var typeAheadModel = Exo.Model.extend({
-	defaults: { // Define some types which can be used
-		keyword: ''
+// Creates a new model class object
+class TypeAheadModel extends App.ComponentModel {
+	// Default values for all of the model attributes
+	get defaults() {
+		return [
+			{
+				keyword: ''
+			}
+		]
 	}
-});
 
-// Returns the Model class
-module.exports = typeAheadModel;
+	initialize() {
+	}
+
+	// Gets called automatically when the set and/or save methods are called (add your own logic)
+	validate(attrs) {
+	}
+}
+
+// Returns the model class
+export default TypeAheadModel;

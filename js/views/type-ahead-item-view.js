@@ -1,56 +1,114 @@
 /**
- * @module typeAheadItemView
+ * Represents a TypeAheadItemView.
+ * @class TypeAheadItemView
+ *
+ * Use the get keyword to make our methods serve as getters for a property.
+ * This means they will be accessible as properties, but defined as methods,
+ * retaining compatibility with any existing references if you're converting existing code.
  *
  * @author Andy Gutsche
  */
 
-var Helpers = require('../../../utils/helpers');
-var App = require('../../../app');
-var $ = App.$;
-var Handlebars = require('handlebars/runtime')['default'];
-var Template = require('../../../templates/templates')(Handlebars);
+import App from '../../../app';
+import Helpers from '../../../utils/helpers';
+import Tpl from '../../../templates/templates';
 
+let Handlebars = require('handlebars/runtime')['default'];
+let $ = App.$;
+let Template = Tpl(Handlebars);
 
-var typeAheadItemView = App.ComponentView.extend({
-	tagName: 'li',
-	className: function () {
-		var markerClassName = 'type-ahead__item';
+// Creates a new view class object
+class TypeAheadItemView extends App.ComponentView {
 
-		return markerClassName;
-	},
+	/**
+	 * Get template
+	 *
+	 */
+	get template() {
+		return this._template;
+	}
 
-	// Options
-	options: {
-		template: 'CTYPEAHEAD__ITEM'
-	},
+	/**
+	 * Set template
+	 *
+	 */
+	set template(tpl) {
+		this._template = tpl;
+	}
 
-	events: {
-		"click [data-js-atom='item-link']": "triggerSearch"
-	},
+	/**
+	 * Get options
+	 *
+	 */
+	get _options() {
+		return {
+			template: Template['TYPEAHEAD__ITEM'],
+			itemLink: '[data-js-atom="item-link"]'
+		}
+	}
 
-	// View constructor
-	initialize: function (obj) {
-		this.options = Helpers.defaults(obj.options || {}, this.options);
-		this.template = Template[this.options.template];
-	},
+	/**
+	 * Set options
+	 *
+	 */
+	set _options(opts) {
+		this.options = opts;
+	}
 
-	triggerSearch: function (e) {
+	/**
+	 * Initialize the view and merge options
+	 *
+	 * @param {Object} obj - options obj
+	 * @public
+	 */
+	initialize(obj) {
+		this._options = Helpers.defaults(obj.options || {}, this._options);
+		this.template = this.options.template;
+		this.bindEvents();
+	}
+
+	/**
+	 * Bind all events
+	 *
+	 * @public
+	 */
+	bindEvents() {
+		let fnTriggerSearch = this.triggerSearch.bind(this);
+
+		// global events
+
+		// local events
+		this.$el.on(App.EVENTS.click, this.options.itemLink, fnTriggerSearch);
+	}
+
+	/**
+	 * Trigger search
+	 *
+	 * @param {Object} e - event object
+	 * @private
+	 */
+	triggerSearch(e) {
 		e.preventDefault();
 
-		App.Vent.trigger('type-ahead:search', {
-			'el': this.$el,
-			'keyword': $(e.currentTarget).text()
+		App.Vent.trigger(App.EVENTS.typeAhead.search, {
+			el: this.$el,
+			keyword: $(e.currentTarget).text()
 		});
-	},
+	}
 
-	// Renders the view's template to the UI
-	render: function () {
+	/**
+	 * Render view
+	 *
+	 * @public
+	 */
+	render() {
 		this.$el.html(this.template(this.model.toJSON()));
 
 		// Maintains chainability
 		return this;
 	}
 
-});
-// Returns the View class
-module.exports = typeAheadItemView;
+}
+
+// Returns the view class
+export default TypeAheadItemView;

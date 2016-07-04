@@ -1,103 +1,201 @@
 /**
- * @module typeAheadView
+ * Represents a TypeAheadView.
+ * @class TypeAheadView
+ *
+ * @module TypeAheadView
+ * @version v2.0.0
+ *
+ * Use the get keyword to make our methods serve as getters for a property.
+ * This means they will be accessible as properties, but defined as methods,
+ * retaining compatibility with any existing references if you're converting existing code.
  *
  * @author Andy Gutsche
  */
 
-var Helpers = require('../../../utils/helpers');
-var App = require('../../../app');
-var $ = App.$;
-var Handlebars = require('handlebars/runtime')['default'];
-var Template = require('../../../templates/templates')(Handlebars);
-var TypeAheadCollection = require('../collections/type-ahead-collection');
-var TypeAheadItemView = require('./type-ahead-item-view');
+import App from '../../../app';
+import Helpers from '../../../utils/helpers';
+import Tpl from '../../../templates/templates';
+import TypeAheadCollection from '../collections/type-ahead-collection';
+import TypeAheadItemView from './type-ahead-item-view';
 
+let Handlebars = require('handlebars/runtime')['default'];
+let $ = App.$;
+let Template = Tpl(Handlebars);
 
-var typeAheadView = App.ComponentView.extend({
+// Creates a new view class object
+class TypeAheadView extends App.ComponentView {
 
-	// Options
-	options: {
-		url: false, //ajax url
-		inputField: '[data-js-atom="input-field"]', // input
-		list: '[data-js-atom="type-ahead-list"]', // item list
-		typeAheadItem: '[data-js-atom="type-ahead-item"]', // single item
-		appendTarget: false, // append the type-ahead box to appendTarget
-		template: 'CTYPEAHEAD', // dsgv template name
-		typeAheadModifierClass: 'search', // modifier class
-		typeAheadClass: false, //state modifier class
-		form: false, // form element
-		threshold: 4 // start type-ahead threshold, default 4 characters
-	},
+	/**
+	 * Get template
+	 *
+	 */
+	get template() {
+		return this._template;
+	}
 
-	events: {
-		"click [data-js-atom='delete-btn']": "resetInput",
-		"keyup [data-js-atom='input-field']": "fetchData",
-		"blur [data-js-atom='input-field']": "removeTypeAhead"
-	},
+	/**
+	 * Set template
+	 *
+	 */
+	set template(tpl) {
+		this._template = tpl;
+	}
 
-	// View constructorf
-	initialize: function (obj) {
-		this.options = Helpers.defaults(obj.options || {}, this.options);
-		this.inputField = $(this.options.inputField, this.$el);
-		this.form = this.options.form ? $(this.options.form, this.$el) : this.$el;
-		this.appendTarget = this.options.appendTarget ? $(this.options.appendTarget, this.$el) : $(document.body);
-		this.template = Template[this.options.template];
-		this.url = this.options.url;
-		this.threshold = this.options.threshold;
+	/**
+	 * Get options
+	 *
+	 */
+	get _options() {
+		return {
+			url: false, //ajax url
+			inputField: '[data-js-atom="input-field"]', // input
+			list: '[data-js-atom="type-ahead-list"]', // item list
+			deleteBtn: '[data-js-atom="delete-btn"]',
+			typeAheadItem: '[data-js-atom="type-ahead-item"]', // single item
+			appendTarget: false, // append the type-ahead box to appendTarget
+			template: Template['TYPEAHEAD'], // template name
+			typeAheadModifierClass: 'search', // modifier class
+			typeAheadClass: false, //state modifier class
+			typeAheadItemClass: 'type-ahead__item',
+			form: false, // form element
+			threshold: 4 // start type-ahead threshold, default 4 characters
+		}
+	}
+
+	/**
+	 * Set options
+	 *
+	 */
+	set _options(opts) {
+		this.options = opts;
+	}
+
+	/**
+	 * Get module information
+	 */
+	static get info() {
+		return {
+			name: 'TypeAhead',
+			version: '2.0.0',
+			vc: true
+		};
+	}
+
+	/**
+	 * Initialize the view and merge options
+	 *
+	 * @param {Object} obj - options obj
+	 * @public
+	 */
+	initialize(obj) {
+		this._options = Helpers.defaults(obj.options || {}, this._options);
+		this.template = this.options.template;
+
+		App.registerModule && App.registerModule(TypeAheadView.info, this.el);
+
+		this.$inputField = $(this.options.inputField, this.$el);
+		this.$form = this.$el.parents(this.options.form);
+		this.$appendTarget = this.options.appendTarget ? $(this.options.appendTarget, this.$el) : this.$el;
 
 		this.bindEvents();
-	},
+	}
 
-	bindEvents: function () {
-		App.Vent.on('type-ahead:search', this.search, this);
-		App.Vent.on(App.EVENTS.resize, this.calculateWidthAndPos, this);
-	},
+	/**
+	 * Bind all events
+	 *
+	 * @public
+	 */
+	bindEvents() {
+		let fnResetInput = this.resetInput.bind(this);
+		let fnFetchData = this.fetchData.bind(this);
+		let fnRemoveTypeAhead = this.removeTypeAhead.bind(this);
+		let fnSearch = this.search.bind(this);
+		let fnCalculateWidthAndPos = this.calculateWidthAndPos.bind(this);
 
-	fetchData: function () {
-		var _this = this;
+		// global events
+		App.Vent.on(App.EVENTS.typeAhead.search, fnSearch);
+		App.Vent.on(App.EVENTS.resize, this.calculateWidthAndPos, fnCalculateWidthAndPos);
 
-		if (_this.inputField.val().length >= this.threshold) {
-			_this.collection = new TypeAheadCollection();
+		// local events
+		this.$el.on(App.EVENTS.click, this.options.deleteBtn, fnResetInput);
+		this.$el.on(App.EVENTS.keyup, this.options.inputField, fnFetchData);
+		this.$el.on(App.EVENTS.blur, this.options.inputField, fnRemoveTypeAhead);
+	}
 
-			_this.collection.fetch({
-				url: _this.url,
-				complete: function () {
-					_this.render();
+	/**
+	 * Fetch auto suggest data
+	 *
+	 * @private
+	 */
+	fetchData() {
+
+		if (this.$inputField.val().length >= this.options.threshold) {
+			this.collection = new TypeAheadCollection(
+
+			);
+
+			this.collection.fetch({
+				url: this.options.url,
+				complete: () => {
+					this.render();
 				}
 			});
 		} else {
-			_this.removeTypeAhead(true);
+			this.removeTypeAhead(true);
 		}
-	},
+	}
 
-	resetInput: function () {
-		this.inputField.val('');
+	/**
+	 * Reset input
+	 *
+	 * @private
+	 */
+	resetInput() {
+		this.$inputField.val('');
 		this.removeTypeAhead(true);
-	},
+	}
 
-	search: function (e) {
-		this.inputField.val(e.keyword);
-		this.form.submit();
-	},
+	/**
+	 * Submit form
+	 *
+	 * @param {Object} e - event object
+	 * @private
+	 */
+	search(e) {
+		this.$inputField.val(e.keyword);
+		this.$form.submit();
+	}
 
-	removeTypeAhead: function (e) {
-		var _this = this;
-		var timeout = typeof e === 'boolean' && e ? 0 : 200;
+	/**
+	 * Remove type ahead element
+	 *
+	 * @param {Object} e - event object
+	 * @private
+	 */
+	removeTypeAhead(e) {
+		let timeout = typeof e === 'boolean' && e ? 0 : 200;
 
-		clearTimeout(_this.timeout);
+		clearTimeout(this.timeout);
 
-		_this.timeout = setTimeout(function () {
-			if (_this.typeAheadEl && _this.typeAheadEl.length) {
-				_this.typeAheadEl.remove();
-				_this.typeAheadEl = null;
+		this.timeout = setTimeout(() => {
+
+			if (this.$typeAheadEl && this.$typeAheadEl.length) {
+				this.$typeAheadEl.remove();
+				this.$typeAheadEl = null;
 			}
 		}, timeout);
-	},
+	}
 
-	calculateWidthAndPos: function (e) {
-		var inputOffset = this.inputField.offset();
+	/**
+	 * Calculate width and position of type ahead element
+	 *
+	 * @param {Object} e - event object
+	 * @private
+	 */
+	calculateWidthAndPos(e) {
+		let inputOffset = this.$inputField.offset();
 
-		if (!this.typeAheadEl || !this.typeAheadEl.length) {
+		if (!this.$typeAheadEl || !this.$typeAheadEl.length) {
 			return;
 		}
 
@@ -105,44 +203,56 @@ var typeAheadView = App.ComponentView.extend({
 			this.removeTypeAhead(true);
 		}
 
-		this.typeAheadEl.css({
-			width: this.inputField.outerWidth(),
-			top: inputOffset.top + this.inputField.outerHeight(),
+		this.$typeAheadEl.css({
+			width: this.$inputField.outerWidth(),
+			top: inputOffset.top + this.$inputField.outerHeight(),
 			left: inputOffset.left
 		});
-	},
+	}
 
-	renderItem: function (model) {
-		var typeAheadItem = new TypeAheadItemView({
-			model: model
+	/**
+	 * Render one item
+	 *
+	 * @param {Object} model - item model
+	 * @private
+	 */
+	renderOne(model) {
+		let typeAheadItem = new TypeAheadItemView({
+			model: model,
+			tagName: 'li',
+			className: () => {
+				return this.options.typeAheadItemClass;
+			}
 		});
 
-		this.typeAheadEl.find(this.options.list).append(typeAheadItem.render().el);
-	},
+		this.$typeAheadEl.find(this.options.list).append(typeAheadItem.render().el);
+	}
 
-	// Renders the view's template to the UI
-	render: function () {
-		var data;
-
-		data = {
+	/**
+	 * Render view
+	 *
+	 * @public
+	 */
+	render() {
+		let data = {
 			typeAheadContextClass: this.options.typeAheadModifierClass,
 			typeAheadClass: this.options.typeAheadClass
 		};
 
-		if (this.typeAheadEl && this.typeAheadEl.length) {
-			this.typeAheadEl.find(this.options.list).empty();
+		if (this.$typeAheadEl && this.$typeAheadEl.length) {
+			this.$typeAheadEl.find(this.options.list).empty();
 		} else {
-			this.typeAheadEl = $(this.template(data));
+			this.$typeAheadEl = $(this.template(data));
 			this.calculateWidthAndPos();
-			this.typeAheadEl.appendTo(this.appendTarget);
+			this.$typeAheadEl.appendTo(this.$appendTarget);
 		}
 
-		this.collection.each(this.renderItem, this);
+		this.collection.forEach(this.renderOne, this);
 
 		// Maintains chainability
 		return this;
 	}
+}
 
-});
-// Returns the View class
-module.exports = typeAheadView;
+// Returns the view class
+export default TypeAheadView;

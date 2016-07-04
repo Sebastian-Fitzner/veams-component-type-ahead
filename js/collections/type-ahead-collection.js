@@ -1,14 +1,28 @@
-// IndexCollection.js
-var Exo = require('exoskeleton');
-var Model = require('../models/type-ahead-model');
+/**
+ * Represents a collection.
+ * @class TypeAheadCollection
+ *
+ * Use the get keyword to make our methods serve as getters for a property.
+ * This means they will be accessible as properties, but defined as methods,
+ * retaining compatibility with any existing references if you're converting existing code.
+ *
+ * @author Andy Gutsche
+ */
 
-// Creates a new Backbone Collection class object
-var typeAheadCollection = Exo.Collection.extend({
+import App from '../../../app';
+import TypeAheadModel from '../models/type-ahead-model';
 
-	// Tells the Backbone Collection that all of it's models will be of type Model (listed up top as a dependency)
-	model: Model
+class TypeAheadCollection extends App.ComponentCollection {
 
-});
+	/**
+	 * Get the models object
+	 *
+	 * @return obj
+	 */
+	get model() {
+		// Tells the collection that all of it's models will be the type model (listed up top as a dependency)
+		return TypeAheadModel
+	}
+}
 
-// Returns the Model class
-module.exports = typeAheadCollection;
+export default TypeAheadCollection;
