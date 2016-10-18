@@ -1,3 +1,6 @@
+### v3.0.1
+- use `null` instead of `false` for empty values in options
+
 ### v3.0.0
 - make module compatible with VeamsQuery
 

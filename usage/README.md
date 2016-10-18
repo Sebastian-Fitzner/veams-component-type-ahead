@@ -3,7 +3,7 @@
 This component is based on the blueprint of Veams-Components.
 
 ## Version
-Latest version is ```v3.0.0```
+Latest version is ```v3.0.1```
 
 ### JavaScript
 - `Veams-JS >= v4.0.0`
@@ -13,12 +13,12 @@ Latest version is ```v3.0.0```
 ### Options:
 
 #### url
-`Type: string` | `Default: false`
+`Type: string` | `Default: null`
 
 Url to fetch auto suggest data from
 
 #### appendTarget
-`Type: string` | `Default: false`
+`Type: string` | `Default: null`
 
 Append list to another element (default: element for which type ahead was initialized)
 
@@ -28,7 +28,7 @@ Append list to another element (default: element for which type ahead was initia
 Context class for type ahead instance
 
 #### modifierClass
-`Type: string` | `Default: false`
+`Type: string` | `Default: null`
 
 Modifier class for type ahead instance
 

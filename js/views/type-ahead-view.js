@@ -3,7 +3,7 @@
  * @class TypeAheadView
  *
  * @module TypeAheadView
- * @version v3.0.0
+ * @version v3.0.1
  *
  * Use the get keyword to make our methods serve as getters for a property.
  * This means they will be accessible as properties, but defined as methods,
@@ -47,16 +47,16 @@ class TypeAheadView extends App.ComponentView {
 	 */
 	get _options() {
 		return {
-			url: false, //ajax url
+			url: null, //ajax url
 			inputField: '[data-js-atom="input-field"]', // input
 			list: '[data-js-atom="type-ahead-list"]', // item list
 			deleteBtn: '[data-js-atom="delete-btn"]',
 			item: '[data-js-atom="type-ahead-item"]', // single item
 			form: '[data-js-atom="form"]', // form element
-			appendTarget: false, // append the type-ahead box to appendTarget
+			appendTarget: null, // append the type-ahead box to appendTarget
 			template: Template['TYPEAHEAD'], // template name
 			contextClass: 'search', // modifier class
-			modifierClass: false, //state modifier class
+			modifierClass: null, //state modifier class
 			itemClass: 'type-ahead__item',
 			threshold: 4 // start type-ahead threshold, default 4 characters
 		}
@@ -76,7 +76,7 @@ class TypeAheadView extends App.ComponentView {
 	static get info() {
 		return {
 			name: 'TypeAhead',
-			version: '3.0.0',
+			version: '3.0.1',
 			vc: true
 		};
 	}
