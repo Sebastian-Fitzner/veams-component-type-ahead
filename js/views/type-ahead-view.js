@@ -3,7 +3,7 @@
  * @class TypeAheadView
  *
  * @module TypeAheadView
- * @version v2.0.0
+ * @version v3.0.0
  *
  * Use the get keyword to make our methods serve as getters for a property.
  * This means they will be accessible as properties, but defined as methods,
@@ -51,13 +51,13 @@ class TypeAheadView extends App.ComponentView {
 			inputField: '[data-js-atom="input-field"]', // input
 			list: '[data-js-atom="type-ahead-list"]', // item list
 			deleteBtn: '[data-js-atom="delete-btn"]',
-			typeAheadItem: '[data-js-atom="type-ahead-item"]', // single item
+			item: '[data-js-atom="type-ahead-item"]', // single item
+			form: '[data-js-atom="form"]', // form element
 			appendTarget: false, // append the type-ahead box to appendTarget
 			template: Template['TYPEAHEAD'], // template name
-			typeAheadModifierClass: 'search', // modifier class
-			typeAheadClass: false, //state modifier class
-			typeAheadItemClass: 'type-ahead__item',
-			form: false, // form element
+			contextClass: 'search', // modifier class
+			modifierClass: false, //state modifier class
+			itemClass: 'type-ahead__item',
 			threshold: 4 // start type-ahead threshold, default 4 characters
 		}
 	}
@@ -76,7 +76,7 @@ class TypeAheadView extends App.ComponentView {
 	static get info() {
 		return {
 			name: 'TypeAhead',
-			version: '2.0.0',
+			version: '3.0.0',
 			vc: true
 		};
 	}
@@ -88,13 +88,14 @@ class TypeAheadView extends App.ComponentView {
 	 * @public
 	 */
 	initialize(obj) {
+		this.$el = $(this.el); //TODO: set via AppComponentView
 		this._options = Helpers.defaults(obj.options || {}, this._options);
 		this.template = this.options.template;
 
 		App.registerModule && App.registerModule(TypeAheadView.info, this.el);
 
 		this.$inputField = $(this.options.inputField, this.$el);
-		this.$form = this.$el.parents(this.options.form);
+		this.$form = this.$el.closest(this.options.form);
 		this.$appendTarget = this.options.appendTarget ? $(this.options.appendTarget, this.$el) : this.$el;
 
 		this.bindEvents();
@@ -114,7 +115,7 @@ class TypeAheadView extends App.ComponentView {
 
 		// global events
 		App.Vent.on(App.EVENTS.typeAhead.search, fnSearch);
-		App.Vent.on(App.EVENTS.resize, this.calculateWidthAndPos, fnCalculateWidthAndPos);
+		App.Vent.on(App.EVENTS.resize, fnCalculateWidthAndPos);
 
 		// local events
 		this.$el.on(App.EVENTS.click, this.options.deleteBtn, fnResetInput);
@@ -130,13 +131,11 @@ class TypeAheadView extends App.ComponentView {
 	fetchData() {
 
 		if (this.$inputField.val().length >= this.options.threshold) {
-			this.collection = new TypeAheadCollection(
-
-			);
+			this.collection = new TypeAheadCollection();
 
 			this.collection.fetch({
 				url: this.options.url,
-				complete: () => {
+				success: () => {
 					this.render();
 				}
 			});
@@ -163,7 +162,7 @@ class TypeAheadView extends App.ComponentView {
 	 */
 	search(e) {
 		this.$inputField.val(e.keyword);
-		this.$form.submit();
+		this.$form[0].submit();
 	}
 
 	/**
@@ -217,15 +216,15 @@ class TypeAheadView extends App.ComponentView {
 	 * @private
 	 */
 	renderOne(model) {
-		let typeAheadItem = new TypeAheadItemView({
+		let item = new TypeAheadItemView({
 			model: model,
 			tagName: 'li',
 			className: () => {
-				return this.options.typeAheadItemClass;
+				return this.options.itemClass;
 			}
 		});
 
-		this.$typeAheadEl.find(this.options.list).append(typeAheadItem.render().el);
+		this.$typeAheadEl.find(this.options.list).append(item.render().el);
 	}
 
 	/**
@@ -235,16 +234,16 @@ class TypeAheadView extends App.ComponentView {
 	 */
 	render() {
 		let data = {
-			typeAheadContextClass: this.options.typeAheadModifierClass,
-			typeAheadClass: this.options.typeAheadClass
+			contextClass: this.options.contextClass,
+			modifierClass: this.options.modifierClass
 		};
 
 		if (this.$typeAheadEl && this.$typeAheadEl.length) {
 			this.$typeAheadEl.find(this.options.list).empty();
 		} else {
-			this.$typeAheadEl = $(this.template(data));
+			this.$typeAheadEl = $($.parseHTML(this.template(data)));
 			this.calculateWidthAndPos();
-			this.$typeAheadEl.appendTo(this.$appendTarget);
+			this.$appendTarget.append(this.$typeAheadEl);
 		}
 
 		this.collection.forEach(this.renderOne, this);

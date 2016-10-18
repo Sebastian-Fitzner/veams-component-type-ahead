@@ -62,6 +62,7 @@ class TypeAheadItemView extends App.ComponentView {
 	 * @public
 	 */
 	initialize(obj) {
+		this.$el = $(this.el); //TODO: set via AppComponentView
 		this._options = Helpers.defaults(obj.options || {}, this._options);
 		this.template = this.options.template;
 		this.bindEvents();
@@ -85,14 +86,19 @@ class TypeAheadItemView extends App.ComponentView {
 	 * Trigger search
 	 *
 	 * @param {Object} e - event object
+	 * @param {object} currentTarget - Target to which listener was attached.
 	 * @private
 	 */
-	triggerSearch(e) {
-		e.preventDefault();
+	triggerSearch(e, currentTarget) {
+		let $currentTarget = currentTarget ? $(currentTarget) : $(e.currentTarget);
+
+		if (e && typeof e === 'function') {
+			e.preventDefault();
+		}
 
 		App.Vent.trigger(App.EVENTS.typeAhead.search, {
-			el: this.$el,
-			keyword: $(e.currentTarget).text()
+			el: this.el,
+			keyword: $currentTarget.text()
 		});
 	}
 
