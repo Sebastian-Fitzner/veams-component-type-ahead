@@ -1,89 +1,46 @@
+<p align='right'>
+    <a href='https://badge.fury.io/bo/veams-utility-type-ahead'><img src='https://badge.fury.io/bo/veams-utility-type-ahead.svg' alt='Bower version' height='20'></a>
+    <a href='https://gitter.im/Sebastian-Fitzner/Veams?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge'><img src='https://badges.gitter.im/Sebastian-Fitzner/Veams.svg' alt='Gitter Chat' /></a>
+</p>
+
 # Type Ahead
 
-This component is based on the blueprint of Veams-Components.
+This utility offers a type-ahead function that can be applied to input elements.
 
-## Version
-Latest version is ```v3.0.1```
+It generates a list with keywords fetched from a server.
 
-### JavaScript
-- `Veams-JS >= v4.0.0`
+-----------
 
-## Usage
+## Requirements
+- `Veams-JS >= v4.0.0` - Basic JavaScript library.
 
-### Options:
+-----------
 
-#### url
-`Type: string` | `Default: null`
+## Installation
 
-Url to fetch auto suggest data from
+### Installation with Veams
 
-#### appendTarget
-`Type: string` | `Default: null`
+`veams install vu type-ahead`
 
-Append list to another element (default: element for which type ahead was initialized)
+### Installation with Bower
 
-#### contextClass
-`Type: string` | `Default: 'search'`
+`bower install veams-utility-type-ahead --save`
 
-Context class for type ahead instance
+-------------
 
-#### modifierClass
-`Type: string` | `Default: null`
+## JavaScript Options
 
-Modifier class for type ahead instance
+The module gives you the possibility to override default options:
 
-#### threshold
-`Type: number` | `Default: 4`
-
-Minimum length of user input needed before auto suggest data can be fetched
-
-### Include: JavaScript
-
-#### Import
-``` js
-// @INSERT :: START @tag: js-import
-import TypeAhead from './modules/type-ahead/views/type-ahead-view';
-// @INSERT :: END
-```
-
-#### Initializing in Veams V2
-``` js
-// @INSERT :: START @tag: js-init-v2 
-/**
- * Init TypeAhead
- */
-Helpers.loadModule({
-	el: '[data-js-module="type-ahead"]',
-	module: TypeAhead,
-	context: context,
-	render: false
-});
-// @INSERT :: END
-```
-
-#### Initializing in Veams V3
-``` js
-// @INSERT :: START @tag: js-init-v3  
-/**
- * Init TypeAhead
- */
-Helpers.loadModule({
-	domName: 'type-ahead',
-	module: TypeAhead,
-	context: context,
-	render: false
-});
-// @INSERT :: END
-```
-
-#### Custom Events
-``` js
-// @INSERT :: START @tag: js-events //
-/**
- * Events TypeAhead
- */
-EVENTS.typeAhead = {
-	search: 'typeAhead:search'
-};
-// @INSERT :: END
-```
+- appendTarget {`String`} [null] - _Append list to another element instead of element for which type ahead was initialized._
+- contextClass {`String`} [null] - _Context class for the generated list._
+- deleteBtn {`String`} ['[data-js-atom="delete-btn"]'] - _Delete button._
+- form {`String`} ['[data-js-atom="form"]'] - _Surrounding form._
+- url {`String`} [null] - _Url to fetch auto suggest data from._
+- inputField {`String`} ['[data-js-atom="input-field"]'] - _Input field for which type ahead is triggered._
+- item {`String`} ['[data-js-atom="type-ahead-item"]'] - _Single item._
+- itemClass {`String`} ['type-ahead__item'] - _Item class._
+- list {`String`} ['[data-js-atom="type-ahead-list"]'] - _Item list._
+- modifierClass {`String`} [null] - _Modifier classes for the generated list._
+- template {`Function`} [Template['TYPEAHEAD']] - _Precompiled template function._
+- threshold {`Number`} [4] - Minimum count of characters needed to trigger type ahead list._

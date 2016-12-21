@@ -47,18 +47,18 @@ class TypeAheadView extends App.ComponentView {
 	 */
 	get _options() {
 		return {
-			url: null, //ajax url
-			inputField: '[data-js-atom="input-field"]', // input
-			list: '[data-js-atom="type-ahead-list"]', // item list
+			appendTarget: null,
+			contextClass: null,
 			deleteBtn: '[data-js-atom="delete-btn"]',
-			item: '[data-js-atom="type-ahead-item"]', // single item
-			form: '[data-js-atom="form"]', // form element
-			appendTarget: null, // append the type-ahead box to appendTarget
-			template: Template['TYPEAHEAD'], // template name
-			contextClass: 'search', // modifier class
-			modifierClass: null, //state modifier class
+			form: '[data-js-atom="form"]',
+			url: null,
+			inputField: '[data-js-atom="input-field"]',
+			item: '[data-js-atom="type-ahead-item"]',
 			itemClass: 'type-ahead__item',
-			threshold: 4 // start type-ahead threshold, default 4 characters
+			list: '[data-js-atom="type-ahead-list"]',
+			modifierClass: null,
+			template: Template['TYPEAHEAD'],
+			threshold: 4
 		}
 	}
 
@@ -234,8 +234,8 @@ class TypeAheadView extends App.ComponentView {
 	 */
 	render() {
 		let data = {
-			contextClass: this.options.contextClass,
-			modifierClass: this.options.modifierClass
+			typeAheadContextClass: this.options.contextClass,
+			typeAheadModifierClass: this.options.modifierClass
 		};
 
 		if (this.$typeAheadEl && this.$typeAheadEl.length) {
