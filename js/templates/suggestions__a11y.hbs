@@ -1,0 +1,6 @@
+{{#each suggestions }}
+	<li class="typeahead__suggestion-item" role="option">
+		<a class="typeahead__suggestion-link" data-js-item="suggestion-item" href="#" data-value="{{ name }}" aria-controls="{{ instanceId }}"
+			aria-expanded="{{ ariaExpanded }}">{{{ suggestionText }}}</a>
+	</li>
+{{/each}}

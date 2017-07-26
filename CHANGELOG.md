@@ -1,3 +1,7 @@
+### v3.1.0
+- Update source code to support Veams 5 framework
+- Rewrite module
+
 ### v3.0.1
 - use `null` instead of `false` for empty values in options
 

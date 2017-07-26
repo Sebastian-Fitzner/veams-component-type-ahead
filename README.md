@@ -12,7 +12,7 @@ It generates a list with keywords fetched from a server.
 -----------
 
 ## Requirements
-- `Veams-JS >= v4.0.0` - Basic JavaScript library.
+- `Veams >= v5.0.0` - Veams Framework.
 
 -----------
 

@@ -1,0 +1,36 @@
+{
+	"variations": {
+		"default": {
+			"docs": {
+				"variationName": "Default"
+			},
+			"settings": {
+				"typeaheadClasses": false,
+				"id": "typeahead",
+				"height": "400px",
+				"type": "text",
+				"attributes": [
+					{
+						"attrKey": "data-js-item",
+						"attrValue": "typeahead__input"
+					},
+					{
+						"attrKey": "autocomplete",
+						"attrValue": "off"
+					}
+				],
+				"autocomplete": "off",
+				"typeaheadJsOptions": {
+					"serviceOptions": {
+						"url": "/ajax/example-ajax.json",
+						"method": "get",
+						"type": "json",
+						"contentType": "application/json",
+						"X-CSRFToken":"475438ff641b168e1f7e1a06c0fea6eb"
+					}
+				}
+			},
+			"content": {}
+		}
+	}
+}

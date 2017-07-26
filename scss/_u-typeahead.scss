@@ -1,0 +1,102 @@
+/* ===================================================
+utility: typeahead
+=================================================== */
+
+/* ---------------------------------------------------
+Global Variables
+--------------------------------------------------- */
+$type-ahead-animation-duration-std: 200ms;
+$type-ahead-animation-easing-std: ease-in-out;
+
+
+.u-typeahead {
+	width: 100%;
+	text-align: center;
+
+	datalist {
+		display: none;
+	}
+
+	.typeahead__list {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 100;
+		width: 100%;
+		background-color: #fff;
+		transform: translate3d(0, 90%, 0);
+		padding: 0;
+		margin: 0;
+		height: auto !important; // TO OVERWRITE JS TOGGLER BEHAVIOUR - OTHERWISE JS-LOGIC HAS TO BE REFACTORED - TODO
+
+		/*
+		MODIFIERS
+		----------------------- */
+		&.is-open {
+			box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .1);
+			padding-top: 4px;
+			padding-bottom: 4px;
+
+			@include bp($bp-desktop-l) {
+				padding-top: 8px;
+				padding-bottom: 8px;
+			}
+
+			&:empty {
+				display: none;
+			}
+		}
+	}
+
+	.typeahead__suggestion-item {
+		width: 100%;
+		display: block;
+	}
+
+	.typeahead__suggestion-link {
+		display: block;
+		text-decoration: none;
+		padding: 10px 0;
+		font-size: 1.8rem;
+		line-height: 22px;
+		font-family: $font-family;
+		color: #000;
+		transition: color $type-ahead-animation-duration-std, background-color $type-ahead-animation-duration-std;
+
+		@include bp($bp-tablet-p) {
+			padding: 18px 0;
+			font-size: 3rem;
+			line-height: 3rem;
+		}
+
+		@include bp($bp-tablet-l) {
+
+		}
+
+		@include bp($bp-desktop-m) {
+
+		}
+
+		@include bp($bp-desktop-l) {
+			font-size: 3.4rem;
+			line-height: 3.4rem;
+			padding: 20px 0;
+		}
+
+		&:hover,
+		&:focus,
+		&.a11y-focus-key {
+			background-color: #f2f7f9;
+			color: #055d8d;
+			outline: 0;
+
+			em {
+				color: #055d8d !important;
+			}
+		}
+	}
+
+	.typeahead__current-value {
+		color: #b1b1b1;
+	}
+}
