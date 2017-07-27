@@ -1,3 +1,8 @@
+### v3.1.1
+- Fix insertpoints
+- Rename `typeahead` to `type-ahead`
+- Update readme
+
 ### v3.1.0
 - Update source code to support Veams 5 framework
 - Rewrite module

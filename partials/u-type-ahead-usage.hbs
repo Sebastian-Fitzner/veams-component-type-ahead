@@ -1,24 +1,24 @@
 ---
 type: utility
-contextData: "typeahead-bp"
+contextData: "type-ahead-bp"
 layout: "lyt-docs"
 publish: true
-title: "Utilities | typeahead"
+title: "Utilities | type-ahead"
 displayName: u-type-ahead
 scssFiles:
-- _u-typeahead.scss
+- _u-type-ahead.scss
 jsFiles:
-- typeahead.js
+- type-ahead.js
 requirements:
 - c-form__input
 ---
-<div class="u-typeahead{{#if settings.typeaheadClasses}} {{settings.typeaheadClasses}}{{/if}}"
-     data-js-module="typeahead"{{#if settings.typeaheadJsOptions}}
-     data-js-options='{{stringify settings.typeaheadJsOptions}}'{{/if}}>
+<div class="u-type-ahead{{#if settings.typeAheadClasses}} {{settings.typeAheadClasses}}{{/if}}"
+     data-js-module="type-ahead"{{#if settings.typeAheadJsOptions}}
+     data-js-options='{{stringify settings.typeAheadJsOptions}}'{{/if}}>
 	{{! WrapWith START:  }}
 	{{#wrapWith "c-form"}}
 		{{> c-form__input }}
 	{{/wrapWith}}
 	{{! WrapWith END:  }}
-	<ul class="typeahead__list" role="listbox" data-js-item="typeahead__list" data-js-height="{{ settings.height }}"></ul>
+	<ul class="type-ahead__list" role="listbox" data-js-item="type-ahead__list" data-js-height="{{ settings.height }}"></ul>
 </div>

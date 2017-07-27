@@ -1,5 +1,5 @@
 /* ===================================================
-utility: typeahead
+utility: type-ahead
 =================================================== */
 
 /* ---------------------------------------------------
@@ -9,7 +9,7 @@ $type-ahead-animation-duration-std: 200ms;
 $type-ahead-animation-easing-std: ease-in-out;
 
 
-.u-typeahead {
+.u-type-ahead {
 	width: 100%;
 	text-align: center;
 
@@ -17,7 +17,7 @@ $type-ahead-animation-easing-std: ease-in-out;
 		display: none;
 	}
 
-	.typeahead__list {
+	.type-ahead__list {
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -48,12 +48,12 @@ $type-ahead-animation-easing-std: ease-in-out;
 		}
 	}
 
-	.typeahead__suggestion-item {
+	.type-ahead__suggestion-item {
 		width: 100%;
 		display: block;
 	}
 
-	.typeahead__suggestion-link {
+	.type-ahead__suggestion-link {
 		display: block;
 		text-decoration: none;
 		padding: 10px 0;
@@ -96,7 +96,7 @@ $type-ahead-animation-easing-std: ease-in-out;
 		}
 	}
 
-	.typeahead__current-value {
+	.type-ahead__current-value {
 		color: #b1b1b1;
 	}
 }

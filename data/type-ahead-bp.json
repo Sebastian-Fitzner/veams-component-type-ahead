@@ -5,14 +5,14 @@
 				"variationName": "Default"
 			},
 			"settings": {
-				"typeaheadClasses": false,
-				"id": "typeahead",
+				"typeAheadClasses": false,
+				"id": "type-ahead",
 				"height": "400px",
 				"type": "text",
 				"attributes": [
 					{
 						"attrKey": "data-js-item",
-						"attrValue": "typeahead__input"
+						"attrValue": "type-ahead__input"
 					},
 					{
 						"attrKey": "autocomplete",
@@ -20,7 +20,7 @@
 					}
 				],
 				"autocomplete": "off",
-				"typeaheadJsOptions": {
+				"typeAheadJsOptions": {
 					"serviceOptions": {
 						"url": "/ajax/example-ajax.json",
 						"method": "get",

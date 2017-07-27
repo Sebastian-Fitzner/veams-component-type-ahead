@@ -3,7 +3,7 @@
     <a href='https://gitter.im/Sebastian-Fitzner/Veams?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge'><img src='https://badges.gitter.im/Sebastian-Fitzner/Veams.svg' alt='Gitter Chat' /></a>
 </p>
 
-# Type Ahead
+# TypeAhead
 
 This utility offers a type-ahead function that can be applied to input elements.
 
@@ -28,19 +28,27 @@ It generates a list with keywords fetched from a server.
 
 -------------
 
+## Fields
+
+### u-type-ahead.hbs
+
+#### Settings
+
+- settings.typeAheadClasses {`String`} - _Modifier classes._
+- settings.typeAheadJsOptions {`Object`} - _Options object which gets stringified._
+- settings.height {`Number`} - _Height of suggestion list._
+
+-------------
+
 ## JavaScript Options
 
 The module gives you the possibility to override default options:
 
-- appendTarget {`String`} [null] - _Append list to another element instead of element for which type ahead was initialized._
-- contextClass {`String`} [null] - _Context class for the generated list._
-- deleteBtn {`String`} ['[data-js-atom="delete-btn"]'] - _Delete button._
-- form {`String`} ['[data-js-atom="form"]'] - _Surrounding form._
-- url {`String`} [null] - _Url to fetch auto suggest data from._
-- inputField {`String`} ['[data-js-atom="input-field"]'] - _Input field for which type ahead is triggered._
-- item {`String`} ['[data-js-atom="type-ahead-item"]'] - _Single item._
-- itemClass {`String`} ['type-ahead__item'] - _Item class._
-- list {`String`} ['[data-js-atom="type-ahead-list"]'] - _Item list._
-- modifierClass {`String`} [null] - _Modifier classes for the generated list._
-- template {`Function`} [Template['TYPEAHEAD']] - _Precompiled template function._
-- threshold {`Number`} [4] - Minimum count of characters needed to trigger type ahead list._
+- currentValueClass {`String`} ['type-ahead__current-value'] - _Current value class._
+- inputSel {`String`} [[data-js-item="type-ahead__input"]] - _Element selector for input._
+- minLength {`Number`} [2] - _Minimal length of input value before suggestions will be shown._
+- minLoadTime {`Number`} [0] - _Minimal time that must have passed before new request is sent to server._
+- suggestionItemSel {`String`} [[data-js-item="suggestion-item"]] - _Element selector for suggestion item._
+- suggestionItemSel {`String`} [[data-js-item="type-ahead__list"]] - _Element selector for type-ahead list._
+- templates.tplSuggestionsA11y {`String`} ['SUGGESTIONS__A11Y'] - _Template name for suggestion (list item)._
+- templates.tplSuggestionsOpt {`String`} ['SUGGESTIONS__OPTIONS'] - _Template name for option._

@@ -18,7 +18,7 @@ import Toggler from '../../../components/toggler/js/toggler';
 const $ = Veams.$;
 const Helpers = Veams.helpers;
 
-class Typeahead extends VeamsComponent {
+class TypeAhead extends VeamsComponent {
 
 	/**
 	 * Constructor for our class
@@ -31,12 +31,12 @@ class Typeahead extends VeamsComponent {
 	 */
 	constructor(obj) {
 		let options = {
-			currentValueClass: "typeahead__current-value",
-			inputSel: '[data-js-item="typeahead__input"]',
+			currentValueClass: "type-ahead__current-value",
+			inputSel: '[data-js-item="type-ahead__input"]',
 			minLength: 2,
 			minLoadTime: 0,
 			suggestionItemSel: '[data-js-item="suggestion-item"]',
-			suggestionListSel: '[data-js-item="typeahead__list"]',
+			suggestionListSel: '[data-js-item="type-ahead__list"]',
 			templates: {
 				tplSuggestionsA11y: "SUGGESTIONS__A11Y",
 				tplSuggestionsOpt: "SUGGESTIONS__OPTIONS"
@@ -269,7 +269,7 @@ class Typeahead extends VeamsComponent {
 		this.currentValue = $(target).data("value") || $(target).val();
 		this.$input.val(this.currentValue);
 
-		this.$el.trigger(Veams.EVENTS.typeahead.suggestionChoosen, {
+		this.$el.trigger(Veams.EVENTS.typeAhead.suggestionChoosen, {
 			search: this.currentValue
 		});
 	}
@@ -291,7 +291,7 @@ class Typeahead extends VeamsComponent {
 		return new Promise((resolve, reject) => {
 			this.service[this.options.serviceOptions.method]({
 				data: JSON.stringify({}),
-				url: this.options.serviceOptions.url + "?typeahead=" + this.currentValue
+				url: this.options.serviceOptions.url + "?type-ahead=" + this.currentValue
 			}).then((data) => {
 				setTimeout(() => {
 					if (timeOfRequest !== this.timeOfRequest) {
@@ -372,4 +372,4 @@ class Typeahead extends VeamsComponent {
 	}
 }
 
-export default Typeahead;
+export default TypeAhead;
