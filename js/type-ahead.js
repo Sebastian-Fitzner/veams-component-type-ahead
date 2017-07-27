@@ -62,8 +62,7 @@ class TypeAhead extends VeamsComponent {
 	 * Subscribe handling
 	 */
 	get subscribe() {
-		return {
-		}
+		return {}
 	}
 
 
@@ -105,9 +104,8 @@ class TypeAhead extends VeamsComponent {
 
 		this.$input.on(Veams.EVENTS.blur, this.onItemBlur.bind(this));
 
-		this.$suggestionList
-			.on(Veams.EVENTS.touchstart, this.options.suggestionItemSel, this.onChosenSuggestion.bind(this))
-			.on(Veams.EVENTS.click, this.options.suggestionItemSel, this.onChosenSuggestion.bind(this));
+		this.$suggestionList.on(Veams.EVENTS.touchstart + ' ' + Veams.EVENTS.click, this.options.suggestionItemSel,
+			this.onChosenSuggestion.bind(this));
 	}
 
 
@@ -207,9 +205,11 @@ class TypeAhead extends VeamsComponent {
 	 * Handle touch and click event
 	 *
 	 * @param {Object} event - Event object
+	 * @param {object} [currentTarget] - Target to which listener was attached (used in VeamsQuery).
 	 */
-	onChosenSuggestion(event) {
-		let target = event.currentTarget;
+	onChosenSuggestion(event, currentTarget) {
+		let target = currentTarget || event.currentTarget;
+
 		event.preventDefault();
 
 		this.triggerChosenSuggestion(target);
@@ -267,7 +267,7 @@ class TypeAhead extends VeamsComponent {
 	 * @param {Object} target - DOM Node
 	 */
 	triggerChosenSuggestion(target) {
-		this.currentValue = $(target).data("value") || $(target).val();
+		this.currentValue = $(target).attr('data-value') || $(target).val();
 		this.$input.val(this.currentValue);
 
 		this.$el.trigger(Veams.EVENTS.typeAhead.suggestionChoosen, {
@@ -299,9 +299,8 @@ class TypeAhead extends VeamsComponent {
 						return false;
 					}
 
-					let $suggestionsItems = $(
-						Veams.templater.render(this.options.templates.tplSuggestionsA11y, this.formatResponseDataHelper(data)));
-					this.$suggestionList.html($suggestionsItems);
+					this.$suggestionList.html(Veams.templater.render(this.options.templates.tplSuggestionsA11y,
+						this.formatResponseDataHelper(data)));
 
 					this.bindItemEvents();
 
