@@ -1,3 +1,6 @@
+### v3.1.2
+- Update version in JS
+
 ### v3.1.1
 - Fix insertpoints
 - Rename `typeahead` to `type-ahead`

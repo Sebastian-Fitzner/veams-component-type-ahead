@@ -1,8 +1,8 @@
 /**
  * This module offers type-ahead functionality for input fields.
  *
- * @module Typeahead
- * @version v3.1.0
+ * @module TypeAhead
+ * @version v3.1.2
  *
  * @author José Medina
  */
@@ -16,7 +16,6 @@ import Toggler from '../../../components/toggler/js/toggler';
 
 // Variables
 const $ = Veams.$;
-const Helpers = Veams.helpers;
 
 class TypeAhead extends VeamsComponent {
 
@@ -52,7 +51,9 @@ class TypeAhead extends VeamsComponent {
 	 */
 	static get info() {
 		return {
-			version: '3.1.0'
+			version: '3.1.2',
+			vc: true,
+			mod: false // set to true if source was modified in project
 		};
 	}
 
