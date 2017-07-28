@@ -2,7 +2,7 @@
  * This module offers type-ahead functionality for input fields.
  *
  * @module TypeAhead
- * @version v3.1.2
+ * @version v3.1.3
  *
  * @author José Medina
  */
@@ -51,7 +51,7 @@ class TypeAhead extends VeamsComponent {
 	 */
 	static get info() {
 		return {
-			version: '3.1.2',
+			version: '3.1.3',
 			vc: true,
 			mod: false // set to true if source was modified in project
 		};
