@@ -2,7 +2,7 @@
  * This module offers type-ahead functionality for input fields.
  *
  * @module TypeAhead
- * @version v3.1.3
+ * @version v3.1.4
  *
  * @author José Medina
  */
@@ -51,7 +51,7 @@ class TypeAhead extends VeamsComponent {
 	 */
 	static get info() {
 		return {
-			version: '3.1.3',
+			version: '3.1.4',
 			vc: true,
 			mod: false // set to true if source was modified in project
 		};
@@ -99,13 +99,8 @@ class TypeAhead extends VeamsComponent {
 	 */
 	bindEvents() {
 		this.$input.on(Veams.EVENTS.keyup, this.onKeyup.bind(this));
-
 		$(window).on(Veams.EVENTS.keydown, this.onWindowKeydown.bind(this));
-
 		this.$input.on(Veams.EVENTS.blur, this.onItemBlur.bind(this));
-
-		this.$suggestionList.on(Veams.EVENTS.touchstart + ' ' + Veams.EVENTS.click, this.options.suggestionItemSel,
-			this.onChosenSuggestion.bind(this));
 	}
 
 
@@ -194,6 +189,7 @@ class TypeAhead extends VeamsComponent {
 	 */
 	bindItemEvents() {
 		this.$suggestionList.find(this.options.suggestionItemSel)
+			.on(Veams.EVENTS.touchstart + ' ' + Veams.EVENTS.click, this.onChosenSuggestion.bind(this))
 			.on(Veams.EVENTS.blur, this.onItemBlur.bind(this))
 			.on(Veams.EVENTS.focus, this.onItemFocus.bind(this))
 			.on(Veams.EVENTS.mouseenter, this.onItemMouseEnter.bind(this))

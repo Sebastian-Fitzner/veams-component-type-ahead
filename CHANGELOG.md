@@ -1,3 +1,6 @@
+### v3.1.4
+- Fix version conflict
+
 ### v3.1.3
 - Fix click event issue if veams-query is used
 
