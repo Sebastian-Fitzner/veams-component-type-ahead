@@ -20,12 +20,8 @@
 ### Include: SCSS
 
 ``` scss
-// @INSERT :: START @tag: scss-import //
-@import "utilities/_u-type-ahead";
-// @INSERT :: END
-
 // @INSERT :: START @tag: scss-self-contained-import // 
-@import "../templating/partials/utilities/type-ahead/scss/_u-type-ahead";
+@import "../utilities/type-ahead/scss/_u-type-ahead";
 // @INSERT :: END
 ```
 
@@ -33,12 +29,8 @@
 
 #### Import
 ``` js
-// @INSERT :: START @tag: js-import
-import TypeAhead from './modules/type-ahead/js/type-ahead';
-// @INSERT :: END
-
 // @INSERT :: START @tag: js-self-contained-import //
-import Typeahead from '../templating/mixed/utilities/type-ahead/js/type-ahead';
+import Typeahead from '../utilities/type-ahead/js/type-ahead';
 // @INSERT :: END //
 ```
 
