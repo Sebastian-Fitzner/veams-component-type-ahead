@@ -1,5 +1,5 @@
 <p align='right'>
-    <a href='https://badge.fury.io/bo/veams-utility-type-ahead'><img src='https://badge.fury.io/bo/veams-utility-type-ahead.svg' alt='Bower version' height='20'></a>
+    <a href="https://badge.fury.io/js/veams-utility-type-ahead"><img src="https://badge.fury.io/js/veams-utility-type-ahead.svg" alt="npm version" height="18"></a>
     <a href='https://gitter.im/Sebastian-Fitzner/Veams?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge'><img src='https://badges.gitter.im/Sebastian-Fitzner/Veams.svg' alt='Gitter Chat' /></a>
 </p>
 
@@ -21,10 +21,6 @@ It generates a list with keywords fetched from a server.
 ### Installation with Veams
 
 `veams install vu type-ahead`
-
-### Installation with Bower
-
-`bower install veams-utility-type-ahead --save`
 
 -------------
 

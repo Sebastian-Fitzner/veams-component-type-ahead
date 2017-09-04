@@ -1,0 +1,18 @@
+{
+	"name": "veams-utility-type-ahead",
+	"version": "4.0.0",
+	"description": "This utility offers a type-ahead function that can be applied to input elements. It generates a list with keywords fetched from a server.",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/Veams/veams-utility-type-ahead.git"
+	},
+	"keywords": [
+		"veams"
+	],
+	"author": "Sebastian Fitzner",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Veams/veams-utility-type-ahead/issues"
+	},
+	"homepage": "https://github.com/Veams/veams-utility-type-ahead#readme"
+}
