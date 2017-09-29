@@ -1,17 +1,3 @@
----
-type: utility
-contextData: "type-ahead-bp"
-layout: "lyt-docs"
-publish: true
-title: "Utilities | type-ahead"
-displayName: u-type-ahead
-scssFiles:
-- _u-type-ahead.scss
-jsFiles:
-- type-ahead.js
-requirements:
-- c-form__input
----
 <div class="u-type-ahead{{#if settings.typeAheadClasses}} {{settings.typeAheadClasses}}{{/if}}"
      data-js-module="type-ahead"{{#if settings.typeAheadJsOptions}}
      data-js-options='{{stringify settings.typeAheadJsOptions}}'{{/if}}>

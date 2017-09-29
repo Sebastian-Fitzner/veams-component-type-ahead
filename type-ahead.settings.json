@@ -1,0 +1,15 @@
+{
+	"type": "utility",
+	"displayName": "u-type-ahead",
+	"contextData": "type-ahead-bp",
+	"layout": "lyt-docs",
+	"scssFiles": [
+		"_u-type-ahead.scss"
+	],
+	"jsFiles": [
+		"type-ahead.js"
+	],
+	"requirements": [
+		"c-form__input"
+	]
+}

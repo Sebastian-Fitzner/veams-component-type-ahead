@@ -1,3 +1,5 @@
+## Usage
+
 ### Include: Page
 
 ``` hbs
@@ -17,24 +19,10 @@
 {{! @INSERT :: END }}
 ```
 
-### Include: SCSS
-
-``` scss
-// @INSERT :: START @tag: scss-self-contained-import // 
-@import "../utilities/type-ahead/scss/_u-type-ahead";
-// @INSERT :: END
-```
-
 ### Include: JavaScript
 
-#### Import
-``` js
-// @INSERT :: START @tag: js-self-contained-import //
-import Typeahead from '../utilities/type-ahead/js/type-ahead';
-// @INSERT :: END //
-```
+#### Initializing in Veams V5
 
-#### Initializing
 ``` js
 // @INSERT :: START @tag: js-init-v5 //
  	,
@@ -47,6 +35,7 @@ import Typeahead from '../utilities/type-ahead/js/type-ahead';
 ```
 
 #### Custom Events
+
 ``` js
 // @INSERT :: START @tag: js-events //
 /**
@@ -55,5 +44,5 @@ import Typeahead from '../utilities/type-ahead/js/type-ahead';
 EVENTS.typeAhead = {
 	search: 'typeAhead:search'
 };
-// @INSERT :: END
+// @INSERT :: END //
 ```
