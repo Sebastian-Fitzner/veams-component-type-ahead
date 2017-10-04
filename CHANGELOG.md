@@ -1,3 +1,6 @@
+### v3.1.5
+- Fix repository url in bower.json
+
 ### v3.1.4
 - Fix version conflict
 
