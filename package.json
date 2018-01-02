@@ -1,6 +1,6 @@
 {
 	"name": "veams-utility-type-ahead",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"description": "This utility offers a type-ahead function that can be applied to input elements. It generates a list with keywords fetched from a server.",
 	"repository": {
 		"type": "git",

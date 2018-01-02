@@ -26,7 +26,7 @@ It generates a list with keywords fetched from a server.
 
 ## Fields
 
-### u-type-ahead.hbs
+### type-ahead.hbs
 
 #### Settings
 
